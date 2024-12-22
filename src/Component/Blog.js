@@ -5,8 +5,58 @@ import client3 from "../images/client-03.png"
 import News1 from "../images/news/news1.webp"
 import News2 from "../images/news/news2.webp"
 import News3 from "../images/news/news3.webp"
+import {BaseURL}  from "../constant/BaseUrl.js";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Blog() {
+  const [service, setService] = useState()
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone:"",
+    service:"",
+    message:""
+  })
+  const Handler = (e) => {
+    const { name, value ,} = e.target;
+    setUser({
+      ...user,
+      [name]: value
+    })
+  }
+  const submitHandler = (e) => {
+    console.log(user)
+     e.preventDefault()
+      setUser({
+             name: "",
+             email: "",
+             phone:"",
+             service:"",
+             message:""
+
+          })
+     
+  }
+  const Add = async () => {
+    const { name, email,phone,service,message } = user;
+   
+      axios.post(`${BaseURL}/contact`, user)
+        .then((res) => {
+          console.log()
+        //  setService(res.data.message)
+         
+        })
+  }
+  const [data, setData] = useState([])
+const GetData=async()=>{
+ const res=await axios.get(`${BaseURL}/all-blog`)
+ setData(res.data)
+}
+console.log(data)
+useEffect(()=>{
+  GetData()
+},[])
   return (
     <>
         <section className="banner">
@@ -14,83 +64,88 @@ function Blog() {
         <div className="banner-area bannerform">
           <div className="banner-right">
             <section className="item-box service">
-              <form action="">
-                <div className="form-box">
-                  <div className="list-items">
-                    <div className="list-item">
-                      <label for="name">Name<span>*</span></label>
-                      <input id="name" type="text" name="name" />
-                    </div>
-                    <div className="list-item">
-                      <label for="email">Email<span>*</span></label>
-                      <input id="email" type="text" name="email" />
-                    </div>
-                  </div>
-                  <div className="list-items">
-                    <div className="list-item">
-                      <label for="phone">Phone<span>*</span></label>
-                      <input id="phone" type="text" name="phone" />
-                    </div>
-                    <div className="list-item">
-                      <label for="services">Select Service<span>*</span></label>
-                      <select
-                        id="services"
-                        name="services"
-                        className="form-select"
-                        aria-label="Default select example"
-                      >
-                        <option value="Web Development" selected>
-                          Web Development
-                        </option>
-                        <option value="Ecommerce Website Design">
-                          Ecommerce Website Design
-                        </option>
-                        <option value="Mobile App Development">
-                          Mobile App Development
-                        </option>
-                        <option value="Search Engine Optimization">
-                          Search Engine Optimization
-                        </option>
-                        <option value="Social Media Marketing">
-                          Social Media Marketing
-                        </option>
-                        <option value="Google Local Listing">
-                          Google Local Listing
-                        </option>
-                        <option value="Web Hosting Services">
-                          Web Hosting Services
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="list-item">
-                    <label for="message"
-                      >Message/Requirements<span>*</span></label
-                    >
-                    <textarea id="message" ></textarea>
-                  </div>
-                  <div className="list-item check-items">
-                    <div className="list-text form-check">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="approve"
-                      />
-                      <label className="form-check-label" for="approve"
-                        >I approve RZ Web Media to Contact me</label
-                      >
-                    </div>
-                    <div className="list-text">
-                      Attach files Select from your
-                      <a href="#">Computer</a> or <a href="#">Google Docs</a> or
-                      <a href="#">Dropbox Url</a>
-                    </div>
-                  </div>
-                  <div className="button-box">
-                    <button className="button">Book a Appointment</button>
-                  </div>
-                </div>
-              </form>
+              <form onSubmit={submitHandler}>
+                      <div className="form-box">
+                                        <div className="list-items">
+                                            <div className="list-item">
+                                                <label for="name">Name<span>*</span></label>
+                                                <input id="name" type="text" name="name" value={user.name} onChange={Handler} required/>
+                                            </div>
+                                            <div className="list-item">
+                                                <label for="email">Email<span>*</span></label>
+                                                <input id="email" type="text" name="email" value={user.email}  onChange={Handler} required/>
+                                            </div>
+                                        </div>
+                                        <div className="list-items">
+                                            <div className="list-item">
+                                                <label for="phone">Phone<span>*</span></label>
+                                                <input id="phone" type="text" name="phone"  value={user.phone} onChange={Handler} required/>
+                                            </div>
+                                            <div className="list-item">
+                                                <label for="services">Select Service<span>*</span></label>
+                                                <select  value={user.service}  onChange={Handler}
+                                                    id="services"
+                                                    name="service"
+                                                    className="form-select"
+                                                    aria-label="Default select example"
+                                                    required
+                                                
+                                                >
+                                                    <option value="" >
+                                                       Select Area
+                                                    </option>
+                                                    <option value="Web Development" >
+                                                        Web Development
+                                                    </option>
+                                                    <option value="Ecommerce Website Design">
+                                                        Ecommerce Website Design
+                                                    </option>
+                                                    <option value="Mobile App Development">
+                                                        Mobile App Development
+                                                    </option>
+                                                    <option value="Search Engine Optimization">
+                                                        Search Engine Optimization
+                                                    </option>
+                                                    <option value="Social Media Marketing">
+                                                        Social Media Marketing
+                                                    </option>
+                                                    <option value="Google Local Listing">
+                                                        Google Local Listing
+                                                    </option>
+                                                    <option value="Web Hosting Services">
+                                                        Web Hosting Services
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="list-item">
+                                            <label for="message"
+                                            >Message/Requirements<span>*</span></label>
+                                            <textarea id="message" name="message" value={user.message} onChange={Handler} required></textarea>
+                                        </div>
+                                        <div className="list-item check-items">
+                                            <div className="list-text form-check">
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    id="approve"
+                                                />
+                                                <label className="form-check-label" for="approve"
+                                                >I approve RZ Web Media to Contact me</label
+                                                >
+                                            </div>
+                                            
+                                            <div className="list-text">
+                                                Attach files Select from your
+                                                <a href="#">Computer</a> or <a href="#">Google Docs</a> or
+                                                <a href="#">Dropbox Url</a>
+                                            </div>
+                                        </div>
+                                        <div className="button-box">
+                                            <button className="button" onClick={Add}>Book a Appointment</button>
+                                        </div>
+                      </div>
+               </form>
             </section>
           </div>
           <div className="banner-left">
@@ -129,19 +184,22 @@ function Blog() {
         </div>
         
         <div className="row align-items-center mt-4">
-        	<div className="col-md-4">
-        		<img src={News1} width="100%" alt="" />
-	        	<div className="news-part">
-		        	<div className="date">25 Aug, 2024</div>
-		        	<div className="admin"><i className="fa fa-user"></i> By Admin</div>
-		        	<h5>It is a long established fact that a reader</h5>
-		        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
-		        <Link to="/blog-details">
-            	<a href="blog-details.html" className="button">View All</a>
-              </Link>
-	        	</div>
-        	</div>
-        	<div className="col-md-4">
+        {data?.map((item) => (
+           <div className="col-md-4">
+           <img src={`${BaseURL}/uploads/${item.image}`} width="100%" alt="" />
+           <div className="news-part">
+             <div className="date">25 Aug, 2024</div>
+             <div className="admin"><i className="fa fa-user"></i> By Admin</div>
+             <h5>{item.title}</h5>
+             <p>{item.description}.</p>
+           <Link to="/blog-details">
+             <a href="blog-details.html" className="button">View All</a>
+             </Link>
+           </div>
+         </div>
+          ))}
+        	
+        	{/* <div className="col-md-4">
         		<img src={News2} width="100%" alt="" />
 	        	<div className="news-part">
 		        	<div className="date">15 July, 2024</div>
@@ -204,10 +262,10 @@ function Blog() {
               <a href="blog-details.html" className="button">View All</a>
               </Link>
 	        	</div>
-        	</div>
+        	</div> */}
         </div>
-        
-        <div className="row justify-content-center mt-4">
+          
+         <div className="row justify-content-center mt-4">
 			<div className="col-md-12 text-center mt-3">
 				<nav aria-label="Page navigation example">
 					<ul className="pagination justify-content-center">
@@ -218,9 +276,10 @@ function Blog() {
 					</ul>
 				</nav>
             </div>
-		</div>
-        
+		    </div>
+         
       </div>
+ 
     </section>
     
     <section className="item-box feedback">

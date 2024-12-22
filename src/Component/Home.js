@@ -21,10 +21,48 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NavItem, PageItem } from 'react-bootstrap';
+import {BaseURL}  from "../constant/BaseUrl.js";
+
+import axios from "axios";
 
 const Home = () => {
 
+  const [service, setService] = useState()
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone:"",
+    message:""
+  })
+  const Handler = (e) => {
+    const { name, value ,} = e.target;
+    setUser({
+      ...user,
+      [name]: value
+    })
+  }
+  const submitHandler = (e) => {
+    console.log(user)
+     e.preventDefault()
+      setUser({
+             name: "",
+             email: "",
+             phone:"",
+             message:""
 
+          })
+     
+  }
+  const Add = async () => {
+    const { name, email,phone,message } = user;
+   
+      axios.post(`${BaseURL}/contact-home`, user)
+        .then((res) => {
+          console.log()
+        //  setService(res.data.message)
+         
+        })
+  }
     return (
   <>
  <body className="home-page">
@@ -658,19 +696,19 @@ const Home = () => {
     <section className="item-box service">
       <div className="wrapper">
         <h3 className="center"><span>We are Here</span> For your Service</h3>
-        <form action="">
+        <form  onSubmit={submitHandler}>
           <div className="form-box">
             <div className="list-item">
               <label for="name">Name<span>*</span></label>
-              <input id="name" type="text" name="name" />
+              <input id="name" type="text" name="name" value={user.name} onChange={Handler} required />
             </div>
             <div className="list-item">
               <label for="email">Email<span>*</span></label>
-              <input id="email" type="text" name="email" />
+              <input id="email" type="text" name="email"  value={user.email}  onChange={Handler} required />
             </div>
             <div className="list-item">
               <label for="phone">Phone<span>*</span></label>
-              <input id="phone" type="text" name="phone" />
+              <input id="phone" type="text" name="phone"   value={user.phone} onChange={Handler} required />
               <div className="list-text form-check">
                 <input type="checkbox" className="form-check-input" id="approve" />
                 <label className="form-check-label" for="approve" >
@@ -679,7 +717,7 @@ const Home = () => {
             </div>
             <div className="list-item">
               <label for="message">Message/Requirements<span>*</span></label>
-              <textarea id="message" ></textarea>
+              <textarea id="message"  name="message"  value={user.message} onChange={Handler} required ></textarea>
               <div className="list-text">
                 Attach files Select from your <a href="#">Computer</a> or
                 <a href="#">Google Docs</a> or
@@ -688,7 +726,7 @@ const Home = () => {
             </div>
           </div>
           <div className="button-box">
-            <button className="button">Book a Appointment</button>
+            <button className="button"  onClick={Add}>Book a Appointment</button>
           </div>
         </form>
       </div>

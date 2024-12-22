@@ -21,18 +21,18 @@ function App() {
    <>
 <Header />
    <Routes>
-   <Route path="/" element={<Home></Home>} />
+   <Route path="/" element={<Home></Home>}  exact />
    <Route path="/about" element={<About></About>} /> 
-   <Route path="/industries" element={<Industries></Industries>} /> 
-   <Route path="/state" element={<State></State>} /> 
-   <Route path="/technology" element={<Technology></Technology>} /> 
+   <Route path="/industries" element={<Industries></Industries>} exact/> 
+   <Route path="/state" element={<State></State>}  exact /> 
+   <Route path="/technology" element={<Technology></Technology>}  exact /> 
    <Route path="/service" element={<Service></Service>} /> 
-   <Route path="/industries-inner" element={<IndustriesInner></IndustriesInner>} /> 
-   <Route path="/service-inner" element={<ServicesInner></ServicesInner>} /> 
-   <Route path="/technology-inner" element={<TechnologyInner></TechnologyInner>} /> 
-   <Route path="/blog" element={<Blog></Blog>} /> 
+   <Route path="/industries-inner" element={<IndustriesInner></IndustriesInner>} exact /> 
+   <Route path="/service-inner" element={<ServicesInner></ServicesInner>} exact /> 
+   <Route path="/technology-inner" element={<TechnologyInner></TechnologyInner>} exact /> 
+   <Route path="/blog" element={<Blog></Blog>} exact /> 
 
-   <Route path="/blog-details" element={<BlogDetails></BlogDetails>} /> 
+   <Route path="/blog-details" element={<BlogDetails></BlogDetails>} exact /> 
 
  </Routes>
  <Footer/>

@@ -2,7 +2,48 @@ import { Link } from "react-router-dom";
 import client1 from "../images/client-01.png"
 import client2 from "../images/client-02.png"
 import client3 from "../images/client-03.png"
+import {BaseURL}  from "../constant/BaseUrl.js";
+import { useState } from "react";
+import axios from "axios";
 function Service() {
+    const [service, setService] = useState()
+    const [user, setUser] = useState({
+      name: "",
+      email: "",
+      phone:"",
+      service:"",
+      message:""
+    })
+    const Handler = (e) => {
+      const { name, value ,} = e.target;
+      setUser({
+        ...user,
+        [name]: value
+      })
+    }
+    const submitHandler = (e) => {
+      console.log(user)
+       e.preventDefault()
+        setUser({
+               name: "",
+               email: "",
+               phone:"",
+               service:"",
+               message:""
+  
+            })
+       
+    }
+    const Add = async () => {
+      const { name, email,phone,service,message } = user;
+     
+        axios.post(`${BaseURL}/contact`, user)
+          .then((res) => {
+            console.log()
+          //  setService(res.data.message)
+           
+          })
+    }
     return (
         <>
 
@@ -11,32 +52,37 @@ function Service() {
                     <div className="banner-area bannerform">
                         <div className="banner-right">
                             <section className="item-box service">
-                                <form action="">
-                                    <div className="form-box">
+                            <form onSubmit={submitHandler}>
+                      <div className="form-box">
                                         <div className="list-items">
                                             <div className="list-item">
                                                 <label for="name">Name<span>*</span></label>
-                                                <input id="name" type="text" name="name" />
+                                                <input id="name" type="text" name="name" value={user.name} onChange={Handler} required/>
                                             </div>
                                             <div className="list-item">
                                                 <label for="email">Email<span>*</span></label>
-                                                <input id="email" type="text" name="email" />
+                                                <input id="email" type="text" name="email" value={user.email}  onChange={Handler} required/>
                                             </div>
                                         </div>
                                         <div className="list-items">
                                             <div className="list-item">
                                                 <label for="phone">Phone<span>*</span></label>
-                                                <input id="phone" type="text" name="phone" />
+                                                <input id="phone" type="text" name="phone"  value={user.phone} onChange={Handler} required/>
                                             </div>
                                             <div className="list-item">
                                                 <label for="services">Select Service<span>*</span></label>
-                                                <select
+                                                <select  value={user.service}  onChange={Handler}
                                                     id="services"
-                                                    name="services"
+                                                    name="service"
                                                     className="form-select"
                                                     aria-label="Default select example"
+                                                    required
+                                                
                                                 >
-                                                    <option value="Web Development" selected>
+                                                    <option value="" >
+                                                       Select Area
+                                                    </option>
+                                                    <option value="Web Development" >
                                                         Web Development
                                                     </option>
                                                     <option value="Ecommerce Website Design">
@@ -62,9 +108,8 @@ function Service() {
                                         </div>
                                         <div className="list-item">
                                             <label for="message"
-                                            >Message/Requirements<span>*</span></label
-                                            >
-                                            <textarea id="message"></textarea>
+                                            >Message/Requirements<span>*</span></label>
+                                            <textarea id="message" name="message" value={user.message} onChange={Handler} required></textarea>
                                         </div>
                                         <div className="list-item check-items">
                                             <div className="list-text form-check">
@@ -77,6 +122,7 @@ function Service() {
                                                 >I approve RZ Web Media to Contact me</label
                                                 >
                                             </div>
+                                            
                                             <div className="list-text">
                                                 Attach files Select from your
                                                 <a href="#">Computer</a> or <a href="#">Google Docs</a> or
@@ -84,10 +130,10 @@ function Service() {
                                             </div>
                                         </div>
                                         <div className="button-box">
-                                            <button className="button">Book a Appointment</button>
+                                            <button className="button" onClick={Add}>Book a Appointment</button>
                                         </div>
-                                    </div>
-                                </form>
+                      </div>
+                            </form> 
                             </section>
                         </div>
                         <div className="banner-left">
