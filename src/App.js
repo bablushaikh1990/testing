@@ -14,6 +14,8 @@ import ServicesInner from "./Component/ServicesInner.js"
 import TechnologyInner from './Component/TechnologyInner.js';
 import Blog from './Component/Blog.js';
 import BlogDetails from './Component/BlogDetails.js';
+import BlogForm from './Component/BlogForm.js';
+import Login from './Component/Login.js';
 
 function App() {
   
@@ -31,8 +33,11 @@ function App() {
    <Route path="/service-inner" element={<ServicesInner></ServicesInner>} exact /> 
    <Route path="/technology-inner" element={<TechnologyInner></TechnologyInner>} exact /> 
    <Route path="/blog" element={<Blog></Blog>} exact /> 
+   <Route path="/blog-upload" element={<BlogForm></BlogForm>} exact /> 
 
-   <Route path="/blog-details" element={<BlogDetails></BlogDetails>} exact /> 
+   <Route path="/blog-details/:id" element={<BlogDetails></BlogDetails>} exact /> 
+
+   <Route path="/login" element={<Login></Login>} exact /> 
 
  </Routes>
  <Footer/>

@@ -5,15 +5,12 @@ import client3 from "../images/client-03.png"
 import News1 from "../images/news/news1.webp"
 import News2 from "../images/news/news2.webp"
 import News3 from "../images/news/news3.webp"
-import {useParams,useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
 import {BaseURL}  from "../constant/BaseUrl.js";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import moment from 'moment';
 
-function BlogDetails() {
-  // const [data,setData]=useState([])
-
+function TestBlog() {
   const [service, setService] = useState()
   const [user, setUser] = useState({
     name: "",
@@ -52,47 +49,28 @@ function BlogDetails() {
          
         })
   }
-
-
-  let {id}= useParams();
-  console.log(id)
-
-//   const fetchBlogData = async () => {
-//     try {
-//       // Construct the URL using template literals
-//       const  res = await axios.get(`${BaseURL}/one-blog/${id}`);
-//  // Log the fetched data (optional)
-//        setData(res)  
-//         console.log(data);  // Return the data for further use (optional)
-//     } catch (error) {
-//       console.error("Error fetching blog data:", error);
-//       return null; // Return null if there's an error, or handle it accordingly
-//     }
-//   };
-//   useEffect(()=>{
-//     fetchBlogData()
-//   },[])
-
   const [data, setData] = useState([])
-  const GetData=async()=>{
-   const res=await axios.get(`${BaseURL}/one-blog/${id}`);
-   console.log(res)
-   setData(res)
+const GetData=async()=>{
+ const res=await axios.get(`${BaseURL}/all-blog`)
+ setData(res.data)
 
-  }
-  console.log(data)
-  
-   useEffect(()=>{
-    GetData()
-  },[])
+}
+console.log(data)
+useEffect(()=>{
+  GetData()
+},[])
+const date = new Date();  // Current date and time, or you can use any specific date
+
+// Format the date to '25 Aug, 2024'
+const formattedDate = moment(date).format('DD MMM, YYYY');
   return (
     <>
-    <section className="banner">
+        <section className="banner">
       <div className="wrapper">
         <div className="banner-area bannerform">
           <div className="banner-right">
             <section className="item-box service">
-            <form onSubmit={submitHandler}>
+              <form onSubmit={submitHandler}>
                       <div className="form-box">
                                         <div className="list-items">
                                             <div className="list-item">
@@ -173,7 +151,7 @@ function BlogDetails() {
                                             <button className="button" onClick={Add}>Book a Appointment</button>
                                         </div>
                       </div>
-              </form> 
+               </form>
             </section>
           </div>
           <div className="banner-left">
@@ -194,89 +172,122 @@ function BlogDetails() {
     </section>
     <section className="breadcrumb">
       <div className="wrapper">
-        <ul><Link to="/" >
+        <ul>
+          <Link to="/">
           <li><a href="index.html">Home</a></li>
           </Link>
-        
-          <li>Blog Details</li>
          
+          <li>Blog</li>
+          
         </ul>
       </div>
     </section>
-   
-	<section className="blog-details-wrapper">
-	    <div className="container">
-	        <div className="row">
+
+    <section className="news-panel item-box professional">
+      <div className="wrapper">
+        <h3 className="center"><span>News & Articles</span> Blogs</h3>
+        <div className="item-text center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor fringilla erat, eget ornare orci ultricies at. Aliquam eget laoreet ligula. Praesent mattis consequat ex, a condimentum magna gravida non.
+        </div>
         
-	            <div className="col-lg-8">
-	                <div className="blog__details__left bg-light p-3">
-	                    <div className="single-blog__inner">
-	                        <div className="tj-blog-inner">
-	                            <div className="tj-info-bg style-2"><img src={`${BaseURL}/uploads/${data.data?.image}`} width="100%" alt="" /></div>
-	                            <div className="blog__meta mb-3">
-	                                <div className="tjblog_author"><a href="#"><i className="fal fa-user-circle"></i> By Admin</a></div>
-	                                <div className="tjblog_date"><i className="fa-light fa-calendar-days"></i> January 2, 2023</div>
-	                            </div>
-	                            <h4>{data.data?.title}</h4>
-                             
-	                            <p>{data.data?.description}.</p>
-	                            
-	                          
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-            
-	            <div className="col-lg-4">
-	                <div className="blog__details__right">
-	                    <div className="tj-common-blog tj-main-service">
-	                        <h3 className="sidebar__title">Popular Post</h3>
-	                        <div className="tj-single-common">
-	                            <div className="tj-blog-img"><div className="tj-img"><img src={News1} alt="" /></div></div>
-	                            <div className="tj-content">
-	                                <div className="sidebar__post-content-meta">
-	                                    <div className="tj-date"><a href="#"><i className="fa-regular fa-calendar-days"></i> June 13</a></div>
-	                                </div>
-	                                <h6><a href="#">This Place Really Place For Awesome Moment</a></h6>
-	                            </div>
-	                        </div>
-	                        <div className="tj-single-common">
-	                            <div className="tj-blog-img"><div className="tj-img"><img src={News2} alt=""/></div></div>
-	                            <div className="tj-content">
-	                                <div className="sidebar__post-content-meta">
-	                                    <div className="tj-date"><a href="#"><i className="fa-regular fa-calendar-days"></i> June 13</a></div>
-	                                </div>
-	                                <h6><a href="#">This Place Really Place For Awesome Moment</a></h6>
-	                            </div>
-	                        </div>
-							<div className="tj-single-common">
-	                            <div className="tj-blog-img"><div className="tj-img"><img src={News3} alt=""/></div></div>
-	                            <div className="tj-content">
-	                                <div className="sidebar__post-content-meta">
-	                                    <div className="tj-date"><a href="#"><i className="fa-regular fa-calendar-days"></i> June 13</a></div>
-	                                </div>
-	                                <h6><a href="#">This Place Really Place For Awesome Moment</a></h6>
-	                            </div>
-	                        </div>
-	                    </div>
+        <div className="row align-items-center mt-4">
+        {data?.map((item) => (
+           <div className="col-md-4">
+           <img src={`${BaseURL}/uploads/${item.image}`} width="100%" alt="" />
+           <div className="news-part">
+         
+             <div className="date">{formattedDate}</div>
+             <div className="admin"><i className="fa fa-user"></i> By Admin</div>
+             <h5>{item.title}</h5>
+             <p>{item.description}.</p>
+           <Link to={`/blog-details/${item._id}`}>
+             <a href="blog-details.html" className="button">View All</a>
+             </Link>
+           </div>
+         </div>
+          ))}
+        	
+        	{/* <div className="col-md-4">
+        		<img src={News2} width="100%" alt="" />
+	        	<div className="news-part">
+		        	<div className="date">15 July, 2024</div>
+		        	<div className="admin"><i className="fa fa-user"></i> By Admin</div>
+		        	<h5>It is a long established fact that a reader</h5>
+		        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+		        
+              <Link to="/blog-details">
+              	<a href="blog-details.html" className="button">View All</a>
+                </Link>
+	        	</div>
+        	</div>
+        	<div className="col-md-4">
+        		<img src={News3} width="100%" alt="" />
+	        	<div className="news-part">
+		        	<div className="date">22 July, 2024</div>
+		        	<div className="admin"><i className="fa fa-user"></i> By Admin</div>
+		        	<h5>It is a long established fact that a reader</h5>
+		        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+              <Link to="/blog-details">
+              <a href="blog-details.html" className="button">View All</a>
+              </Link>
+	        	</div>
+        	</div>
 
-	                </div>
-
-					<div className="tj-main-service sidebar-widget">
-						<h3 className="sidebar__title">Categories</h3>
-						<ul>
-							<li><a href="#">Web Designing</a><span>(2)</span></li>
-							<li><a href="#">Web Development</a><span>(7)</span></li>
-							<li><a href="#">SEO</a><span>(1)</span></li>
-							<li><a href="#">SMO</a><span>(1)</span></li>
-							<li><a href="#">Ecommerce Website</a><span>(1)</span></li>
-							<li><a href="#">Mobile App</a><span>(1)</span></li>
-						</ul>
-					</div>
-	            </div>
-	        </div>
-	    </div>
-	</section>
+			<div className="col-md-4">
+        		<img src={News1} width="100%" alt="" />
+	        	<div className="news-part">
+		        	<div className="date">25 Aug, 2024</div>
+		        	<div className="admin"><i className="fa fa-user"></i> By Admin</div>
+		        	<h5>It is a long established fact that a reader</h5>
+		        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+              <Link to="/blog-details">
+              <a href="blog-details.html" className="button">View All</a>
+              </Link>
+	        	</div>
+        	</div>
+        	<div className="col-md-4">
+        		<img src={News2} width="100%" alt="" />
+	        	<div className="news-part">
+		        	<div className="date">15 July, 2024</div>
+		        	<div className="admin"><i className="fa fa-user"></i> By Admin</div>
+		        	<h5>It is a long established fact that a reader</h5>
+		        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+		        	
+              <Link to="/blog-details">
+              <a href="blog-details.html" className="button">View All</a>
+              </Link>
+	        	</div>
+        	</div>
+        	<div className="col-md-4">
+        		<img src={News3} width="100%" alt="" />
+	        	<div className="news-part">
+		        	<div className="date">22 July, 2024</div>
+		        	<div className="admin"><i className="fa fa-user"></i> By Admin</div>
+		        	<h5>It is a long established fact that a reader</h5>
+		        	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+		        	
+              <Link to="/blog-details">
+              <a href="blog-details.html" className="button">View All</a>
+              </Link>
+	        	</div>
+        	</div> */}
+        </div>
+          
+         <div className="row justify-content-center mt-4">
+			<div className="col-md-12 text-center mt-3">
+				<nav aria-label="Page navigation example">
+					<ul className="pagination justify-content-center">
+						<li className="page-item active"><a className="page-link" href="#">1</a></li>
+						<li className="page-item"><a className="page-link" href="#">2</a></li>
+						<li className="page-item"><a className="page-link" href="#">3</a></li>
+						<li className="page-item"><a className="page-link" href="#"><i className="fa-regular fa-angle-right"></i></a></li>
+					</ul>
+				</nav>
+            </div>
+		    </div>
+         
+      </div>
+ 
+    </section>
     
     <section className="item-box feedback">
       <div className="wrapper">
@@ -333,8 +344,9 @@ function BlogDetails() {
         </div>
       </div>
     </section>
+
     </>
 
   )
 }
-export default  BlogDetails;
+export default  TestBlog;

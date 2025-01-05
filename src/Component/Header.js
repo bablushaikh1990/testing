@@ -25,21 +25,21 @@ const Header = () => {
         </ul>
       </div>
     </section>
-    <header class="site-header">
-      <div class="wrapper">
-        <div class="logo">
+    <header className="site-header">
+      <div className="wrapper">
+        <div className="logo">
         <Link to="/">
           <a href="index.html">RZ Web Media</a>
           </Link>
           </div>
-        <div class="navigation">
-          <nav class="navbar navbar-expand-lg navbar-light">
+        <div className="navigation">
+          <nav className="navbar navbar-expand-lg navbar-light">
             <button
-              class="navbar-toggler collapsed"
+              className="navbar-toggler collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" 
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
@@ -47,40 +47,40 @@ const Header = () => {
               <span></span>
               <span></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <ul class="navbar-nav">
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <ul className="navbar-nav">
               <Link to="/about">
                 <li>
-                  <a class="nav-link" href="">About</a></li>
+                  <a className="nav-link" href="">About</a></li>
                </Link>
                <Link to="/Industries">
                 <li>
-                  <a class="nav-link" href="" >Industries We Serve</a>
+                  <a className="nav-link" href="" >Industries We Serve</a>
                 </li>
                 </Link>
                 <Link to="/state">
                 <li>
-                  <a class="nav-link" href="">State We Serve</a>
+                  <a className="nav-link" href="">State We Serve</a>
                 </li>
                 </Link>
                 <Link to="/technology">
                 <li>
-                  <a class="nav-link" href="">Technology</a>
+                  <a className="nav-link" href="">Technology</a>
                 </li>
                 </Link>
                 <Link to="/service">
-                <li><a class="nav-link" href="">Services</a></li>
+                <li><a className="nav-link" href="">Services</a></li>
                 </Link>
 
                 <Link to="/blog">
-                <li><a class="nav-link" href="blog.html">Blog</a></li>
+                <li><a className="nav-link" href="blog.html">Blog</a></li>
                 </Link>
-                <li><a class="nav-link" href="contact.html">Contact</a></li>
+                <li><a className="nav-link" href="contact.html">Contact</a></li>
               </ul>
             </div>
           </nav>
-          <div class="calltest">
-            <a class="button" href="#">Book a Call</a>
+          <div className="calltest">
+            <a className="button" href="#">Book a Call</a>
           </div>
         </div>
       </div>
