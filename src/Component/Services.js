@@ -6,6 +6,45 @@ import {BaseURL}  from "../constant/BaseUrl.js";
 import { useState } from "react";
 import axios from "axios";
 function Service() {
+    
+    const [openItem, setOpenItem] = useState(null);
+
+    const toggleItem = (id) => {
+        setOpenItem(openItem === id ? null : id);
+    };
+    const accordionData = [
+        {
+            id: "one",
+            title: "Maecenas eget convallis tortor, eu elementum felis...",
+            content: "Sed rhoncus sem sit amet lacinia congue. Phasellus eu feugiat sapien...",
+        },
+        {
+            id: "two",
+            title: "Sed rhoncus sem sit amet lacinia congue...",
+            content: "Sed cursus lectus id ultrices scelerisque. Etiam tincidunt consectetur augue...",
+        },
+        {
+            id: "three",
+            title: "Sed rhoncus sem sit amet lacinia congue...",
+            content: "Sed cursus lectus id ultrices scelerisque. Etiam tincidunt consectetur augue...",
+        },
+        {
+            id: "four",
+            title: "Nunc velit dui, tincidunt at malesuada eu...",
+            content: "Sed cursus lectus id ultrices scelerisque. Etiam tincidunt consectetur augue...",
+        },
+        {
+            id: "five",
+            title: "Donec venenatis quis nibh a elementum...",
+            content: "Sed cursus lectus id ultrices scelerisque. Etiam tincidunt consectetur augue...",
+        },
+        {
+            id: "six",
+            title: "Cras sed lacus ac mi gravida posuere...",
+            content: "Sed cursus lectus id ultrices scelerisque. Etiam tincidunt consectetur augue...",
+        },
+    ];
+
     const [service, setService] = useState()
     const [user, setUser] = useState({
       name: "",
@@ -35,15 +74,24 @@ function Service() {
        
     }
     const Add = async () => {
-      const { name, email,phone,service,message } = user;
-     
-        axios.post(`${BaseURL}/contact`, user)
-          .then((res) => {
-            console.log()
-          //  setService(res.data.message)
-           
-          })
-    }
+        const { name, email, phone, service, message } = user;
+      
+        // Validate all fields
+        if (!name || !email || !phone || !service || !message) {
+          
+          return;
+        }
+      
+        try {
+          const res = await axios.post(`${BaseURL}/contact`, user);
+          console.log("Response:", res.data);
+          // Optionally reset the form or show a success message
+         
+        } catch (error) {
+          console.error("Error submitting form:", error);
+        
+        }
+      };
     return (
         <>
 
@@ -112,7 +160,7 @@ function Service() {
                                             <textarea id="message" name="message" value={user.message} onChange={Handler} required></textarea>
                                         </div>
                                         <div className="list-item check-items">
-                                            <div className="list-text form-check">
+                                            {/* <div className="list-text form-check">
                                                 <input
                                                     type="checkbox"
                                                     className="form-check-input"
@@ -121,6 +169,17 @@ function Service() {
                                                 <label className="form-check-label" for="approve"
                                                 >I approve RZ Web Media to Contact me</label
                                                 >
+                                            </div> */}
+                                            <div className="list-text form-check" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    id="approve"
+                                                    style={{ transform: "scale(0.6)", marginTop: "-6px" }}
+                                                />
+                                                <label className="form-check-label" htmlFor="approve" >
+                                                    I approve RZ Web Media to Contact me
+                                                </label>
                                             </div>
                                             
                                             <div className="list-text">
@@ -265,7 +324,7 @@ function Service() {
                         Suspendisse potenti. Sed cursus lectus id ultrices scelerisque. Etiam
                         tincidunt consectetur augue, sit amet vestibulum lectus aliquet ac.
                     </div>
-                    <div className="accordion" id="accordion-fze">
+                    {/* <div className="accordion" id="accordion-fze">
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="headingone">
                                 <button
@@ -461,7 +520,31 @@ function Service() {
                                 </div>
                             </div>
                         </div>
+                    </div> */}
+                                        <div className="accordion" id="accordion-fze">
+            {accordionData.map(({ id, title, content }) => (
+                <div className="accordion-item" key={id}>
+                    <h2 className="accordion-header" id={`heading${id}`}>
+                        <button
+                            className={`accordion-button ${openItem === id ? "" : "collapsed"}`}
+                            type="button"
+                            onClick={() => toggleItem(id)}
+                            aria-expanded={openItem === id}
+                            aria-controls={`collapse${id}`}
+                        >
+                            {title}
+                        </button>
+                    </h2>
+                    <div
+                        id={`collapse${id}`}
+                        className={`accordion-collapse collapse ${openItem === id ? "show" : ""}`}
+                        aria-labelledby={`heading${id}`}
+                    >
+                        <div className="accordion-body">{content}</div>
                     </div>
+                </div>
+            ))}
+        </div>
                     <div className="button-box">
                         <a href="#" className="button">View More FAQs</a>
                     </div>

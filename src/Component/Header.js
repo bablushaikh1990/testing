@@ -8,7 +8,7 @@ const Header = () => {
 
     return (
   <>
- <body className="home-page">
+ {/* < className="home-page"> */}
     <section className="global-header">
       <div className="global-wrapper">
         <ol>
@@ -73,7 +73,7 @@ const Header = () => {
                 </Link>
 
                 <Link to="/blog">
-                <li><a className="nav-link" href="blog.html">Blog</a></li>
+                <li><a className="nav-link" href="">Blog</a></li>
                 </Link>
                 <li><a className="nav-link" href="contact.html">Contact</a></li>
               </ul>
@@ -85,7 +85,7 @@ const Header = () => {
         </div>
       </div>
     </header>
-    </body>
+    {/* </body> */}
     
   </>
     )

@@ -43,16 +43,24 @@ function BlogDetails() {
      
   }
   const Add = async () => {
-    const { name, email,phone,service,message } = user;
-   
-      axios.post(`${BaseURL}/contact`, user)
-        .then((res) => {
-          console.log()
-        //  setService(res.data.message)
-         
-        })
-  }
-
+    const { name, email, phone, service, message } = user;
+  
+    // Validate all fields
+    if (!name || !email || !phone || !service || !message) {
+      
+      return;
+    }
+  
+    try {
+      const res = await axios.post(`${BaseURL}/contact`, user);
+      console.log("Response:", res.data);
+      // Optionally reset the form or show a success message
+     
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    
+    }
+  };
 
   let {id}= useParams();
   console.log(id)
@@ -195,7 +203,7 @@ function BlogDetails() {
     <section className="breadcrumb">
       <div className="wrapper">
         <ul><Link to="/" >
-          <li><a href="index.html">Home</a></li>
+          <li><a href="">Home</a></li>
           </Link>
         
           <li>Blog Details</li>

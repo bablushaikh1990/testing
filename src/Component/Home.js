@@ -27,6 +27,46 @@ import axios from "axios";
 
 const Home = () => {
 
+
+  const [openSection, setOpenSection] = useState(null);
+
+  const toggleSection = (section) => {
+    setOpenSection(openSection === section ? null : section);
+  };
+ 
+  const sections = [
+    {
+      id: "One",
+      title: "Construction and Home Improvement Services",
+      items: ["Car Dealerships","Auto Repair Shops", "Car Rental  Services", "Auto Parts and Accessories Stores","Towing Service","Second Hand Car Sales Businesses"]
+    },
+    {
+      id: "Two",
+      title: "Professional Services",
+      items: ["Example List Item 4", "Example List Item 5", "Example List Item 6"]
+    },
+    {
+      id: "Three",
+      title: "Healthcare and Medical Services",
+      items: ["Example List Item 7", "Example List Item 8"]
+    },
+    {
+      id: "Four",
+      title: "Retail and E-commerce Services",
+      items: ["Example List Item 9", "Example List Item 10"]
+    },
+    {
+      id: "Five",
+      title: "Hospitality and Tourism Services",
+      items: ["Example List Item 11", "Example List Item 12"]
+    },
+    {
+      id: "Six",
+      title: "Automotive",
+      items: ["Example List Item 13", "Example List Item 14", "Example List Item 15"]
+    }
+  ];
+
   const [service, setService] = useState()
   const [user, setUser] = useState({
     name: "",
@@ -247,7 +287,7 @@ const Home = () => {
           facilisis euismod, ante enim scelerisque tortor, nec blandit dolor
           velit faucibus felis.
         </div>
-        <div className="accordion" id="accordion-fz">
+        {/* <div className="accordion" id="accordion-fz">
           <div className="accordion-item">
             <h2 className="accordion-header" id="headingOne">
               <button
@@ -588,7 +628,43 @@ const Home = () => {
               </div>
             </div>
           </div>
+        </div> */}
+          <div className="accordion" id="accordion-fz">
+      {sections.map(({ id, title, items }) => (
+        <div className="accordion-item" key={id}>
+          <h2 className="accordion-header" id={`heading${id}`}>
+            <button
+              className={`accordion-button ${openSection === id ? "" : "collapsed"}`}
+              type="button"
+              onClick={() => toggleSection(id)}
+              aria-expanded={openSection === id}
+              aria-controls={`collapse${id}`}
+            >
+              {title}
+            </button>
+          </h2>
+          <div
+            id={`collapse${id}`}
+            className={`accordion-collapse collapse ${openSection === id ? "show" : ""}`}
+            aria-labelledby={`heading${id}`}
+            data-bs-parent="#accordion-fz"
+          >
+            <div className="accordion-body">
+              <div className="appointment">
+                <a href="#">Book an Appointment</a>
+              </div>
+              <div className="appointment-info">
+                <ul className="columns-02 max-60">
+                  {items.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
+      ))}
+    </div>
       </div>
     </section> 
 
@@ -710,7 +786,7 @@ const Home = () => {
               <label for="phone">Phone<span>*</span></label>
               <input id="phone" type="text" name="phone"   value={user.phone} onChange={Handler} required />
               <div className="list-text form-check">
-                <input type="checkbox" className="form-check-input" id="approve" />
+                <input type="checkbox" className="form-check-input" id="approve"  style={{ transform: "scale(0.6)", marginTop: "-2px" }} />
                 <label className="form-check-label" for="approve" >
                   I approve RZ Web Media to Contact me</label>
               </div>

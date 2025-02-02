@@ -67,7 +67,7 @@ const handlePhoto = (e) => {
                 <section class="breadcrumb">
       <div class="wrapper">
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="">Home</a></li>
           <li>Blog</li>
         </ul>
       </div>

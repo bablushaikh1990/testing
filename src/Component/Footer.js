@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="copyright">
             <div className="site-logo">
               <Link to="/">
-              <a href="index.html">
+              <a href="">
                 <img src={myImage} alt="RZ Web Media" />
             </a>
             </Link>
@@ -33,13 +33,13 @@ const Footer = () => {
             <h5>Quick Links</h5>
             <ul className="links">
             <Link to="/">
-              <li><a className="active" href="index.html">Home</a></li>
+              <li><a className="active" href="">Home</a></li>
               </Link>
               <Link to="/about">
-              <li><a href="about.html">About</a></li>
+              <li><a href="">About</a></li>
               </Link>
               <Link to="/Industries">
-              <li><a href="industries.html">Industries We Serve</a></li>
+              <li><a href="">Industries We Serve</a></li>
               </Link>
               <Link to="/state">
               <li><a href="state.html">State We Serve</a></li>
@@ -48,9 +48,9 @@ const Footer = () => {
               <li><a href="technology.html">Technology</a></li>
               </Link>
               <Link to="/service">
-              <li><a href="services.html">Services</a></li>
+              <li><a href="">Services</a></li>
               </Link>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="">Contact</a></li>
             </ul>
           </div>
           <div className="usefull-links">
